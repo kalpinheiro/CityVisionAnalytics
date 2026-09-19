@@ -18,9 +18,13 @@ pagina = 1
 page_size = 1000
 todos_dados = []
 
-while True:
+while pagina<=1:
     dados = {
-        "query": "SELECT * WHERE created_date >= '2026-01-01'",
+        "query": 
+            "SELECT * "
+            "WHERE created_date >= '2026-01-01T00:00:00'"
+            "AND created_date < '2026-07-01T00:00:00'"
+            "ORDER BY created_date, unique_key",
         "page": {
             "pageNumber": pagina,
             "pageSize": page_size
@@ -51,8 +55,8 @@ while True:
     # Se a página não estiver cheia, chegamos ao final
     if quantidade < page_size:
         break
-
-    pagina += 1
+    else:
+        pagina += 1
 
 # Salva a resposta bruta da API para preservar os dados antes do tratamento
 with open("data/raw/nyc311.json", "w", encoding="utf-8") as arquivo:
